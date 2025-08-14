@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  description String
+  category    String
+  image       String
+  specialty   Boolean  @default(false)
+  origin      String?
+  roastLevel  String?
+  caffeine    String?
+  ingredients String[]
+  calories    Int?
+  protein     Float?
+  carbs       Float?
+  fat         Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  customerId  Int
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  total       Float
+  tax         Float
+  status      OrderStatus @default(PENDING)
+  stripeId    String?     @unique
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  order     Order    @relation(fields: [orderId], references: [id])
+  menuItemId Int
+  menuItem  MenuItem @relation(fields: [menuItemId], references: [id])
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  READY
+  COMPLETED
+  CANCELLED
+}
