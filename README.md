@@ -1,58 +1,80 @@
-# Coffee Shop Backend API Documentation
+# ☕ Coffee Shop Backend API
 
-## Overview
-This is the backend API for the coffee shop application built with Next.js, Prisma, and PostgreSQL.
+## 📌 Overview
+This is the **backend API** for the Coffee Shop E-Commerce Application.  
+It is built using **Next.js 15** (API routes), **TypeScript**, **Prisma ORM**, and **PostgreSQL**, with **Stripe** integration for secure payment processing.
 
-## Features
+This backend provides:
 - Complete menu management
-- Order processing with Stripe integration
-- Customer management
-- Admin dashboard for order management
+- Customer and order management
+- Secure authentication
 - Real-time order status updates
+- Admin dashboard functionalities
 
-## API Endpoints
+---
 
-### Menu Items
-- `GET /api/menu` - Get all menu items
-- `POST /api/menu` - Create new menu item
+## 🏗 Tech Stack
 
-### Orders
-- `GET /api/orders` - Get all orders
-- `POST /api/orders` - Create new order with Stripe payment
+| Technology    | Purpose |
+|---------------|---------|
+| **Next.js 15** | Full-stack framework with API routes |
+| **TypeScript** | Type safety and better developer experience |
+| **Tailwind CSS** | *(Frontend styling, if integrated with SSR pages)* |
+| **Prisma ORM** | Database schema & queries |
+| **PostgreSQL** | Relational database |
+| **Stripe** | Payment processing |
+| **JWT** | User authentication |
+| **Lucide React** | Icon set (for frontend dashboard) |
 
-### Customers
-- `GET /api/customers` - Get all customers
-- `POST /api/customers` - Create new customer
+---
 
-## Setup Instructions
+## ✨ Features
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+- 🍽 **Menu Management**  
+  Add, update, delete, and view coffee items
 
-2. Set up environment variables:
-   ```bash
-   cp .env.example .env
-   ```
+- 🛒 **Order Processing**  
+  Customers can place orders and pay via Stripe
 
-3. Set up PostgreSQL database and update DATABASE_URL in .env
+- 👤 **Customer Management**  
+  Securely store and manage customer data
 
-4. Run database migrations:
-   ```bash
-   npx prisma migrate dev --name init
-   ```
+- 🔐 **Authentication**  
+  User registration, login, and JWT-based authorization
 
-5. Start the development server:
-   ```bash
-   npm run dev
-   ```
+- 📊 **Admin Dashboard API**  
+  Manage inventory and track orders in real time
 
-## Environment Variables
-- `DATABASE_URL`: PostgreSQL connection string
-- `STRIPE_SECRET_KEY`: Stripe secret key
-- `STRIPE_PUBLISHABLE_KEY`: Stripe publishable key
-- `JWT_SECRET`: JWT secret for authentication
+- ⚡ **Performance Optimizations**  
+  Server-side rendering (SSR) + static generation (SSG)
 
-## Usage
-The backend is now ready to serve the coffee shop frontend with full CRUD operations for menu items, orders, and customers, along with Stripe payment integration.
+---
+
+## 📡 API Endpoints
+
+### **Menu**
+| Method | Endpoint       | Auth Required | Description            |
+|--------|---------------|--------------|------------------------|
+| GET    | `/api/menu`   | ❌ No         | Get all menu items      |
+| POST   | `/api/menu`   | ✅ Yes (Admin) | Create a new menu item  |
+
+### **Orders**
+| Method | Endpoint         | Auth Required | Description                       |
+|--------|-----------------|--------------|-----------------------------------|
+| GET    | `/api/orders`   | ✅ Yes (Admin) | Get all orders                    |
+| POST   | `/api/orders`   | ✅ Yes        | Create new order + Stripe payment |
+
+### **Customers**
+| Method | Endpoint             | Auth Required | Description             |
+|--------|---------------------|--------------|-------------------------|
+| GET    | `/api/customers`    | ✅ Yes (Admin) | Get all customers       |
+| POST   | `/api/customers`    | ❌ No         | Create a new customer   |
+
+---
+
+## ⚙️ Installation & Setup
+
+### **1. Clone the repository**
+```bash
+git clone https://github.com/your-username/coffee-shop-backend.git
+cd coffee-shop-backend
